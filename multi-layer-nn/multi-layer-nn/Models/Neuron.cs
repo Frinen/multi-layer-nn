@@ -32,9 +32,37 @@ namespace multi_layer_nn.Models
                     Weights.Add(rnd.NextDouble());
                 }
             }
+            
 
         }
 
+        public void SetWeight(List<double> _weights)
+        {
+            Weights = _weights;
+        }
 
+        public void SetInputs(List<double> _inputs)
+        {
+            Inputs = _inputs;
+        }
+
+        public void Calculate(List<double> input)
+        {
+            Inputs = input;
+            double Sum = 0;
+            for (int i = 0; i < Inputs.Count; i++)
+            {
+                Sum += Inputs[i] * Weights[i];
+            }
+            if (Sum < 0)
+            {
+                Output = 0;
+
+            }
+            else
+            {
+                Output = 1;
+            }
+        }
     }
 }
