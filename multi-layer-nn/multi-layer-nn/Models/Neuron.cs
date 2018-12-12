@@ -12,24 +12,22 @@ namespace multi_layer_nn.Models
         public List<double> Weights;
         public double Output;
         public double Error;
-        public double Eta;
 
-        public Neuron()
+        public Neuron(int inputCount)
         {
-            Eta = 0.7;
             Inputs = new List<double>();
             Weights = new List<double>();
             Random rnd = new Random();
-            for (int i = 0; i < 26; i++)
+            for (int i = 0; i < inputCount; i++)
             {
 
                 if (i == 0)
                 {
-                    Weights.Add(rnd.NextDouble() * -1);
+                    Weights.Add((rnd.NextDouble() * -1) / 100);
                 }
                 else
                 {
-                    Weights.Add(rnd.NextDouble());
+                    Weights.Add(rnd.NextDouble() / 100);
                 }
             }
             
@@ -54,15 +52,7 @@ namespace multi_layer_nn.Models
             {
                 Sum += Inputs[i] * Weights[i];
             }
-            if (Sum < 0)
-            {
-                Output = 0;
-
-            }
-            else
-            {
-                Output = 1;
-            }
+            Output = 1.0 / (1 + Math.Exp(Sum * -1));
         }
     }
 }
